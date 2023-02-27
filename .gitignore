@@ -1,0 +1,7 @@
+**/*.pyc
+.coverage
+htmlcov
+**/.DS_Store
+lib*
+bin
+pyvenv.cfg

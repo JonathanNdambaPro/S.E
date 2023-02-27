@@ -1,0 +1,27 @@
+repos:
+-   repo: https://github.com/psf/black
+    rev: 22.6.0
+    hooks:
+    - id: black
+      exclude: ^bin/
+-   repo: https://github.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+    - id: flake8
+      exclude: ^bin/
+-   repo: https://github.com/pycqa/isort
+    rev: 5.5.4
+    hooks:
+    -   id: isort
+        files: "\\.(py)$"
+        exclude: ^bin/
+- repo: local
+  hooks:
+  -   id: pdoc
+      name: pdoc
+      description: 'pdoc: Auto-generate API documentation for Python projects'
+      entry: pdoc --html --skip-errors --force --output-dir docs package_1
+      language: python
+      language_version: python3
+      require_serial: true
+      types: [python]
