@@ -34,7 +34,7 @@ import pytest
 
 @dataclass
 class PathFaker:
-    suffix: str = &#34;csv&#34;
+    suffix: str = &#34;.csv&#34;
     state: bool = True
 
     def is_file(self):
@@ -162,17 +162,17 @@ class DataFrameFaker:
 </dd>
 <dt id="conftest.PathFaker"><code class="flex name class">
 <span>class <span class="ident">PathFaker</span></span>
-<span>(</span><span>suffix: str = 'csv', state: bool = True)</span>
+<span>(</span><span>suffix: str = '.csv', state: bool = True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>PathFaker(suffix: str = 'csv', state: bool = True)</p></div>
+<div class="desc"><p>PathFaker(suffix: str = '.csv', state: bool = True)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@dataclass
 class PathFaker:
-    suffix: str = &#34;csv&#34;
+    suffix: str = &#34;.csv&#34;
     state: bool = True
 
     def is_file(self):

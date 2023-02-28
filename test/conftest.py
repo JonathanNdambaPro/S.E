@@ -6,7 +6,7 @@ import pytest
 
 @dataclass
 class PathFaker:
-    suffix: str = "csv"
+    suffix: str = ".csv"
     state: bool = True
 
     def is_file(self):

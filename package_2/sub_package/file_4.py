@@ -12,7 +12,8 @@ def file_4_function():
 
 
 def read_header_csv(path: Path) -> t.List:
-    if path.is_file() and path.suffix == "csv":
+    if path.is_file() and path.suffix == ".csv":
+        print(path)
         df_data = pd.read_csv(path)
         columns = [column for column in df_data.columns]
         return columns
