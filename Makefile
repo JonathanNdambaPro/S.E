@@ -4,4 +4,4 @@ docs:
 
 .PHONY: test
 test:
-	pytest
+	pytest --cov=package_2/sub_package --cov-report term-missing --cov-fail-under=80

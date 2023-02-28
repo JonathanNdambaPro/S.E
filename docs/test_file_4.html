@@ -27,35 +27,22 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import typing as t
-from dataclasses import dataclass, field
 
 from package_2.sub_package import file_4
 
 
-@dataclass
-class PathFaker:
-    suffix: str = &#34;csv&#34;
+def test_file_4_read_file(mocker, path_faker, dataframe_faker):
+    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=dataframe_faker)
+    value = file_4.read_header_csv(path_faker)
 
-    def is_file(self):
-        return True
-
-
-def generate_fake_columns():
-    return [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]
+    assert value == [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]
 
 
-@dataclass
-class DataFrameFaker:
-    columns: t.List = field(default_factory=generate_fake_columns)
+def test_file_4_read_file_false(mocker, path_faker_false, dataframe_faker):
+    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=dataframe_faker)
+    value = file_4.read_header_csv(path_faker_false)
 
-
-def test_file_4_read_file(mocker):
-    faker_dataframe = DataFrameFaker()
-    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=faker_dataframe)
-    project_root_path = PathFaker()
-    value = file_4.read_header_csv(project_root_path)
-
-    assert value == [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]</code></pre>
+    assert value == []</code></pre>
 </details>
 </section>
 <section>
@@ -65,21 +52,8 @@ def test_file_4_read_file(mocker):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="test_file_4.generate_fake_columns"><code class="name flex">
-<span>def <span class="ident">generate_fake_columns</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def generate_fake_columns():
-    return [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]</code></pre>
-</details>
-</dd>
 <dt id="test_file_4.test_file_4_read_file"><code class="name flex">
-<span>def <span class="ident">test_file_4_read_file</span></span>(<span>mocker)</span>
+<span>def <span class="ident">test_file_4_read_file</span></span>(<span>mocker, path_faker, dataframe_faker)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -87,84 +61,32 @@ def test_file_4_read_file(mocker):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_file_4_read_file(mocker):
-    faker_dataframe = DataFrameFaker()
-    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=faker_dataframe)
-    project_root_path = PathFaker()
-    value = file_4.read_header_csv(project_root_path)
+<pre><code class="python">def test_file_4_read_file(mocker, path_faker, dataframe_faker):
+    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=dataframe_faker)
+    value = file_4.read_header_csv(path_faker)
 
     assert value == [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]</code></pre>
+</details>
+</dd>
+<dt id="test_file_4.test_file_4_read_file_false"><code class="name flex">
+<span>def <span class="ident">test_file_4_read_file_false</span></span>(<span>mocker, path_faker_false, dataframe_faker)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_file_4_read_file_false(mocker, path_faker_false, dataframe_faker):
+    mocker.patch(&#34;package_2.sub_package.file_4.pd.read_csv&#34;, return_value=dataframe_faker)
+    value = file_4.read_header_csv(path_faker_false)
+
+    assert value == []</code></pre>
 </details>
 </dd>
 </dl>
 </section>
 <section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="test_file_4.DataFrameFaker"><code class="flex name class">
-<span>class <span class="ident">DataFrameFaker</span></span>
-<span>(</span><span>columns: List = &lt;factory&gt;)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>DataFrameFaker(columns: List = <factory>)</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@dataclass
-class DataFrameFaker:
-    columns: t.List = field(default_factory=generate_fake_columns)</code></pre>
-</details>
-<h3>Class variables</h3>
-<dl>
-<dt id="test_file_4.DataFrameFaker.columns"><code class="name">var <span class="ident">columns</span> : List</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="test_file_4.PathFaker"><code class="flex name class">
-<span>class <span class="ident">PathFaker</span></span>
-<span>(</span><span>suffix: str = 'csv')</span>
-</code></dt>
-<dd>
-<div class="desc"><p>PathFaker(suffix: str = 'csv')</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@dataclass
-class PathFaker:
-    suffix: str = &#34;csv&#34;
-
-    def is_file(self):
-        return True</code></pre>
-</details>
-<h3>Class variables</h3>
-<dl>
-<dt id="test_file_4.PathFaker.suffix"><code class="name">var <span class="ident">suffix</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="test_file_4.PathFaker.is_file"><code class="name flex">
-<span>def <span class="ident">is_file</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def is_file(self):
-    return True</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -175,25 +97,8 @@ class PathFaker:
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="test_file_4.generate_fake_columns" href="#test_file_4.generate_fake_columns">generate_fake_columns</a></code></li>
 <li><code><a title="test_file_4.test_file_4_read_file" href="#test_file_4.test_file_4_read_file">test_file_4_read_file</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="test_file_4.DataFrameFaker" href="#test_file_4.DataFrameFaker">DataFrameFaker</a></code></h4>
-<ul class="">
-<li><code><a title="test_file_4.DataFrameFaker.columns" href="#test_file_4.DataFrameFaker.columns">columns</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="test_file_4.PathFaker" href="#test_file_4.PathFaker">PathFaker</a></code></h4>
-<ul class="">
-<li><code><a title="test_file_4.PathFaker.is_file" href="#test_file_4.PathFaker.is_file">is_file</a></code></li>
-<li><code><a title="test_file_4.PathFaker.suffix" href="#test_file_4.PathFaker.suffix">suffix</a></code></li>
-</ul>
-</li>
+<li><code><a title="test_file_4.test_file_4_read_file_false" href="#test_file_4.test_file_4_read_file_false">test_file_4_read_file_false</a></code></li>
 </ul>
 </li>
 </ul>

@@ -29,13 +29,16 @@
 <pre><code class="python">import typing as t
 from dataclasses import dataclass, field
 
+import pytest
+
 
 @dataclass
 class PathFaker:
     suffix: str = &#34;csv&#34;
+    state: bool = True
 
     def is_file(self):
-        return True
+        return self.state
 
 
 def generate_fake_columns():
@@ -44,7 +47,25 @@ def generate_fake_columns():
 
 @dataclass
 class DataFrameFaker:
-    columns: t.List = field(default_factory=generate_fake_columns)</code></pre>
+    columns: t.List = field(default_factory=generate_fake_columns)
+
+
+@pytest.fixture()
+def path_faker():
+    path_faker = PathFaker()
+    return path_faker
+
+
+@pytest.fixture()
+def path_faker_false():
+    path_faker = PathFaker(state=False)
+    return path_faker
+
+
+@pytest.fixture()
+def dataframe_faker():
+    dataframe_faker = DataFrameFaker()
+    return dataframe_faker</code></pre>
 </details>
 </section>
 <section>
@@ -54,6 +75,21 @@ class DataFrameFaker:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="conftest.dataframe_faker"><code class="name flex">
+<span>def <span class="ident">dataframe_faker</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@pytest.fixture()
+def dataframe_faker():
+    dataframe_faker = DataFrameFaker()
+    return dataframe_faker</code></pre>
+</details>
+</dd>
 <dt id="conftest.generate_fake_columns"><code class="name flex">
 <span>def <span class="ident">generate_fake_columns</span></span>(<span>)</span>
 </code></dt>
@@ -65,6 +101,36 @@ class DataFrameFaker:
 </summary>
 <pre><code class="python">def generate_fake_columns():
     return [&#34;column_1&#34;, &#34;column_2&#34;, &#34;column_3&#34;]</code></pre>
+</details>
+</dd>
+<dt id="conftest.path_faker"><code class="name flex">
+<span>def <span class="ident">path_faker</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@pytest.fixture()
+def path_faker():
+    path_faker = PathFaker()
+    return path_faker</code></pre>
+</details>
+</dd>
+<dt id="conftest.path_faker_false"><code class="name flex">
+<span>def <span class="ident">path_faker_false</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@pytest.fixture()
+def path_faker_false():
+    path_faker = PathFaker(state=False)
+    return path_faker</code></pre>
 </details>
 </dd>
 </dl>
@@ -96,10 +162,10 @@ class DataFrameFaker:
 </dd>
 <dt id="conftest.PathFaker"><code class="flex name class">
 <span>class <span class="ident">PathFaker</span></span>
-<span>(</span><span>suffix: str = 'csv')</span>
+<span>(</span><span>suffix: str = 'csv', state: bool = True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>PathFaker(suffix: str = 'csv')</p></div>
+<div class="desc"><p>PathFaker(suffix: str = 'csv', state: bool = True)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -107,12 +173,17 @@ class DataFrameFaker:
 <pre><code class="python">@dataclass
 class PathFaker:
     suffix: str = &#34;csv&#34;
+    state: bool = True
 
     def is_file(self):
-        return True</code></pre>
+        return self.state</code></pre>
 </details>
 <h3>Class variables</h3>
 <dl>
+<dt id="conftest.PathFaker.state"><code class="name">var <span class="ident">state</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 <dt id="conftest.PathFaker.suffix"><code class="name">var <span class="ident">suffix</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
@@ -130,7 +201,7 @@ class PathFaker:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def is_file(self):
-    return True</code></pre>
+    return self.state</code></pre>
 </details>
 </dd>
 </dl>
@@ -146,7 +217,10 @@ class PathFaker:
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
+<li><code><a title="conftest.dataframe_faker" href="#conftest.dataframe_faker">dataframe_faker</a></code></li>
 <li><code><a title="conftest.generate_fake_columns" href="#conftest.generate_fake_columns">generate_fake_columns</a></code></li>
+<li><code><a title="conftest.path_faker" href="#conftest.path_faker">path_faker</a></code></li>
+<li><code><a title="conftest.path_faker_false" href="#conftest.path_faker_false">path_faker_false</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -161,6 +235,7 @@ class PathFaker:
 <h4><code><a title="conftest.PathFaker" href="#conftest.PathFaker">PathFaker</a></code></h4>
 <ul class="">
 <li><code><a title="conftest.PathFaker.is_file" href="#conftest.PathFaker.is_file">is_file</a></code></li>
+<li><code><a title="conftest.PathFaker.state" href="#conftest.PathFaker.state">state</a></code></li>
 <li><code><a title="conftest.PathFaker.suffix" href="#conftest.PathFaker.suffix">suffix</a></code></li>
 </ul>
 </li>
